@@ -1,11 +1,23 @@
 <div class="meal">
-    <h3>Nova refeição</h3>
+    <h3 id="refeicao">Refeicao <span id="nomeRefeicao">X</span><br>
+        <span id="dataHora">03/12/2019 13:00</span>
+    </h3>
+    
     <input id="input-img" type="file" accept="image/*" capture="environment">
-    <div class="img-container">
+    
+    <div class="img-container" align="center">
         <img id="foodImage" src="" alt="">
     </div>
-    <h1 id="meal-date">-</h1>
-    <ul class="foods-container"></ul>
+    
+    <div>
+        <table id="tabelaAlimento"></table>
+    </div>
+    
+    <div>
+        <p id="resultado">Valor calórico total: 
+            <span id="valorSoma">200</span> kCal</p>
+    </div>
+    
 </div>
 
 <button id="cancel-meal-button">Cancelar</button>

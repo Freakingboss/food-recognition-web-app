@@ -1,6 +1,8 @@
 const modelURL = '/ml_models/tm-my-image-model/';
 let model, maxPredictions;
 
+const listaItensInseridos = [];
+
 async function init() {
     const jsonModelURL = modelURL + 'model.json';
     const metadataURL = modelURL + 'metadata.json';
@@ -8,6 +10,8 @@ async function init() {
     model = await tmImage.load(jsonModelURL, metadataURL);
     console.log("Model loaded.");
     maxPredictions = model.getTotalClasses();
+    
+    criarTitulosTabelaAlimentos();
 }
 init();
 
@@ -22,41 +26,85 @@ async function predict() {
     return response;
 }
 
+function criarTitulosTabelaAlimentos(){
+    let tabela = document.getElementById('tabelaAlimento');
+    let line = document.createElement('tr');
+    
+    let food = document.createElement('th');
+    let foodText = document.createTextNode('Alimento');
+    food.appendChild(foodText);
+    
+    let kcal = document.createElement('th');
+    let kcalText = document.createTextNode('Kcal');
+    kcal.appendChild(kcalText);
+    
+    let protein = document.createElement('th');
+    let proteinText = document.createTextNode('Proteínas');
+    protein.appendChild(proteinText);
+    
+    let carbohydrate = document.createElement('th');
+    let carbohydrateText = document.createTextNode('Carboidratos');
+    carbohydrate.appendChild(carbohydrateText);
+    
+    let fiber = document.createElement('th');
+    let fiberText = document.createTextNode('Fibras');
+    fiber.appendChild(fiberText);
+    
+    let quantity = document.createElement('th');
+    let quantityText = document.createTextNode('Quantidade');
+    quantity.appendChild(quantityText);
+    
+    line.appendChild(food);
+    line.appendChild(kcal);
+    line.appendChild(protein);
+    line.appendChild(carbohydrate);
+    line.appendChild(fiber);
+    line.appendChild(quantity);
+    
+    tabela.appendChild(line);
+    
+}
+
 function insertFoodItem(pf) {
     // Se há alimento identificado pelo modelo,
     // inserir o nome numa lista
-    if (Object.keys(pf).length > 0) {
-        let ul = document.getElementsByClassName('foods-container')[0];
-        let foodName = document.createElement('span');
-        let kcal = document.createElement('span');
-        let protein = document.createElement('span');
-        let carbohydrate = document.createElement('span');
-        let fiber = document.createElement('span');
-        let li = document.createElement('li');
-        let deleteTextNode = document.createTextNode('Apagar');
-        let deleteButton = document.createElement('span');
-        let editTextNode = document.createTextNode('Editar');
-        let editButton = document.createElement('span');
+    
+    if(Object.keys(pf).length > 0){
+        
+        let tabela = document.getElementById('tabelaAlimento');
+        let line = document.createElement('tr');
+
+        let food = document.createElement('td');
+        let kcal = document.createElement('td');
+        let protein = document.createElement('td');
+        let carbohydrate = document.createElement('td');
+        let fiber = document.createElement('td');
+        let quantity = document.createElement('td');
+        
+        let addButton = document.createElement('button');
+        addButton.innerHTML = "+";
+
+        let removeButton = document.createElement('button');
+        removeButton.innerHTML = "-";
+
+        quantity.appendChild(addButton);
+        quantity.appendChild(removeButton);
+        
         let predictionTextNode = document.createTextNode(pf.className);
+        console.log(predictionTextNode);
+        food.append(predictionTextNode);
+        
+        line.appendChild(food);
+        line.appendChild(kcal);
+        line.appendChild(protein);
+        line.appendChild(carbohydrate);
+        line.appendChild(fiber);
+        line.appendChild(quantity);
 
-        editButton.append(editTextNode);
-        foodName.classList = "food-name";
-        editButton.classList = "edit-food-button";
-        deleteButton.classList = "del-food-button";
-        li.classList = "food-item";
-        deleteButton.append(deleteTextNode);
-        foodName.append(predictionTextNode);
-
-        li.appendChild(foodName);
-        li.appendChild(kcal);
-        li.appendChild(protein);
-        li.appendChild(carbohydrate);
-        li.appendChild(fiber);
-        li.appendChild(deleteButton);
-        li.appendChild(editButton);
-        console.log(li);
-        ul.appendChild(li);
+        tabela.appendChild(line);
+        
     }
+    
 }
 
 // Event listener que escuta as mudanças de imagens.

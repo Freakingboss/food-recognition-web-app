@@ -1,0 +1,32 @@
+#tabelaAlimento {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#tabelaAlimento td, #tabelaAlimento th {
+  border: 1px solid #ddd;
+  padding: 2px;
+}
+
+#tabelaAlimento tr{
+    text-align: center;
+}
+
+#tabelaAlimento th {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: black;
+}
+
+#resultado {
+    color:black;
+    text-align: left;
+}
+
+#refeicao {
+    text-align: center;
+    background-color: #4CAF50;
+}
